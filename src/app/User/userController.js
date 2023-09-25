@@ -41,3 +41,12 @@ exports.login = async function (req, res) {
 
   return res.send(signInResponse);
 };
+
+exports.getAllUser = async function (req,res){
+    const id=req.params.id;
+    console.log(id);
+    const result = await userProvider.getAllUser(id);
+
+    return res.send(result);
+
+}

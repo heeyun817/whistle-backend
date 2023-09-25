@@ -7,8 +7,11 @@ module.exports = function(app){
     app.post('/app/signup',imageUploader_profile.single("image"),user.postUsers);
 
     //로그인
-    app.get('/app/login',user.login);
+    app.post('/app/login',user.login);
 
+    //app.get("/app/getUser/:id",user.getAllUser);
+
+    //app.post("/app/:userid/board")
 };
 
 

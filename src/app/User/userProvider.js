@@ -14,3 +14,16 @@ exports.loginCheck = async function (selectUserPasswordParams) {
 
   return passwordCheckResult[0];
 };
+
+
+exports.getAllUser = async function (id){
+  
+  const connection = await pool.getConnection(async (conn) => conn);
+
+  const result = await userDao.getAllUser(connection,id);
+
+  connection.release();
+
+  return result;
+
+}

@@ -7,8 +7,8 @@ async function insertUserInfo(connection, insertUserInfoParams) {
         VALUES (?, ?, ?, ?, ?);
     `;
   const insertUserInfoRow = await connection.query(
-    insertUserInfoQuery,
-    insertUserInfoParams
+    insertUserInfoQuery, 
+    insertUserInfoParams  // [id1,1234,노승아,4,5]
   );
 
   return insertUserInfoRow;
@@ -30,6 +30,14 @@ async function loginCheck(connection, Param) {
   
 }
 
+async function getAllUser(connection,id){
+  
+  const result = await connection.query(
+    `SELECT * FROM user WHERE userid = ?`,id
+  );
+  return result[0];
+}
+
 module.exports = {
-  insertUserInfo,loginCheck
+  insertUserInfo,loginCheck,getAllUser
 };

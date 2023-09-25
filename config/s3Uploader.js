@@ -56,5 +56,24 @@ const imageUploader_profile = multer({
     acl: "public-read-write",
   }),
 });
+const imageUploader_post = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "whistle-s3",
+    key: async function (req, file, callback) {
+      //const uploadDirectory = req.query.directory ?? "";
 
-module.exports = {imageUploader_profile:imageUploader_profile};
+      const uploadDirectory = "post";
+      const extension = path.extname(file.originalname);
+      if (!allowedExtensions.includes(extension)) {
+        return callback(new Error("wrong extension"));
+      }
+      const user_id = await req.verifiedToken.userId;
+      callback(null, `${uploadDirectory}/${user_id}_${Date.now()}${extension}`); // 각 이미지마다 고유한 이름을 생성
+    },
+    acl: "public-read-write",
+  }),
+});
+
+
+module.exports = {imageUploader_profile:imageUploader_profile ,imageUploader_post:imageUploader_post};

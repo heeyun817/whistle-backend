@@ -29,6 +29,7 @@ exports.createUser = async function (userid,password,name,introduce,imageURL) {
         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
         
         connection.release();
+        
         return response(baseResponse.SUCCESS);
 
 
@@ -59,7 +60,7 @@ exports.login = async function (userid, password) {
         if (!Rows[0] || Rows[0].password !== hashedPassword) {
             return errResponse(baseResponse.SIGNIN_ERROR);
         }
-        
+        console.log(Rows[0].id)
         //토큰 생성 Service
         let token = await jwt.sign(
         {
